@@ -6,44 +6,53 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
-
-    public static WebDriver driver;
+    public static WebDriver webDriver;
 
     public LoginPage(WebDriver driver){
         PageFactory.initElements(driver, this);
-        this.driver = driver;
+        webDriver = driver;
     }
 
     @FindBy(xpath = "//input[@id='user-name']")
     private WebElement userName;
 
-    @FindBy(xpath = "//input[@id='password']")
+    @FindBy(id = "password")
     private WebElement password;
 
     @FindBy(xpath = "//input[@id='login-button']")
-    private  WebElement btnLogin;
+    private WebElement btnLogin;
 
-    @FindBy(xpath = "//h3")
+    @FindBy(xpath = "//span[@class='title']")
+    private WebElement verifyDashboard;
+
+    @FindBy(css = "h3")
     private WebElement errorText;
 
-    public String verifyErrorText(){
+    public String textError(){
         return errorText.getText();
     }
 
-    public void setUserName(String usrName){
-        userName.sendKeys(usrName);
+
+    public boolean verifyDshboard(){
+        return verifyDashboard.isDisplayed();
     }
 
-    public void setPassword(String psd){
-        password.sendKeys(psd);
+    public void setUserName(String urName){
+        userName.sendKeys(urName);
+    }
+
+    public void setPassword(String psswrd){
+        password.sendKeys(psswrd);
     }
 
     public void clickLogin(){
         btnLogin.click();
     }
 
-    public boolean verifyLandingPage(){
+    public boolean verifyLoginPage(){
         return userName.isDisplayed();
     }
+
+
 
 }
