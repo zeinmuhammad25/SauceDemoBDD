@@ -13,46 +13,36 @@ public class LoginPage {
         webDriver = driver;
     }
 
+      //inisiasi locator
     @FindBy(xpath = "//input[@id='user-name']")
     private WebElement userName;
-
-    @FindBy(id = "password")
+    @FindBy(xpath = "//input[@id='password']")
     private WebElement password;
-
-    @FindBy(xpath = "//input[@id='login-button']")
-    private WebElement btnLogin;
-
+    @FindBy(id = "login-button")
+    private WebElement buttonLogin;
     @FindBy(xpath = "//span[@class='title']")
-    private WebElement verifyDashboard;
+    private WebElement labelProduct;
+    @FindBy(xpath = "//h3")
+    private WebElement labelErrorText;
 
-    @FindBy(css = "h3")
-    private WebElement errorText;
-
-    public String textError(){
-        return errorText.getText();
+    //setup method
+    public void setUserName(String usrName){
+        userName.sendKeys(usrName);
     }
-
-
-    public boolean verifyDshboard(){
-        return verifyDashboard.isDisplayed();
+    public void setPassword(String psword){
+        password.sendKeys(psword);
     }
-
-    public void setUserName(String urName){
-        userName.sendKeys(urName);
+    public void clickButtonLogin(){
+        buttonLogin.click();
     }
-
-    public void setPassword(String psswrd){
-        password.sendKeys(psswrd);
-    }
-
-    public void clickLogin(){
-        btnLogin.click();
-    }
-
-    public boolean verifyLoginPage(){
+    public boolean userNameDisplayed(){
         return userName.isDisplayed();
     }
-
-
+    public boolean verifyLabelProduct(){
+        return labelProduct.isDisplayed();
+    }
+    public String getLabelErrorText(){
+        return labelErrorText.getText();
+    }
 
 }
