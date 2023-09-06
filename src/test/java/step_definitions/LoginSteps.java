@@ -10,28 +10,29 @@ import org.openqa.selenium.WebDriver;
 
 public class LoginSteps {
 
-    public WebDriver driver = Hooks.driver;
+    private final WebDriver driver = Hooks.driver;
     LoginPage loginPage = new LoginPage(driver);
-    @When("User input {string} as userName and input {string} as password")
-    public void inputCredential(String userName, String password){
-        loginPage.setUserName(userName);
-        loginPage.setPassword(password);
-        loginPage.clickLogin();
+    //final method
+    @When("User input {string} as a userName {string} as a password")
+    public void inputCredential(String usrName, String pswd) throws InterruptedException {
+        loginPage.setUserName(usrName);
+        loginPage.setPassword(pswd);
+        loginPage.clickButtonLogin();
+        Thread.sleep(5000);
     }
-
-    @Given("User already on login page")
+    @Given("User open the website sauce demo")
     public void verifyLoginPage(){
-        Assert.assertTrue(loginPage.verifyLoginPage());
+        Assert.assertTrue(loginPage.userNameDisplayed());
+    }
+    @Then("User already on home page")
+    public void verifyHomePage(){
+        Assert.assertTrue(loginPage.verifyLabelProduct());
     }
 
-    @Then("User already on product page")
-    public void verifyDashboard(){
-        Assert.assertTrue(loginPage.verifyDshboard());
-    }
-
-    @Then("User see {string} as error text on login page")
-    public  void verifyErrorText(String A){
-        Assert.assertEquals( A , loginPage.textError());
+    @Then("User see error {string} on login page")
+    public void verifyLabelErrorText(String errorText) throws InterruptedException {
+        Assert.assertEquals(loginPage.getLabelErrorText(),errorText);
+        Thread.sleep(3000);
     }
 
 }
